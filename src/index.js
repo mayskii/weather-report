@@ -1,44 +1,103 @@
 'use strict';
 
-const tempEl = document.getElementById('tempValue');
-const tempUpEl = document.getElementById('increaseTempControl');
-const tempDownEl = document.getElementById('decreaseTempControl');
-let landscapeEl = document.getElementById('landscape');
+const state = {
+  temp: 70,
+  tempEl: null,
+  tempUpEl: null,
+  tempDownEl: null,
+  landscapeEl: null,
 
-const updateTempColorAndLandscape = (temp) => {
-
-  if (temp >= 80) {
-    tempEl.className = 'red';
-    landscapeEl.textContent = '🌵__🐍_🦂_🌵🌵__🐍_🏜_🦂';
-  } else if (temp >= 70) {
-    tempEl.className = 'orange';
-    landscapeEl.textContent = '🌸🌿🌼__🌷🌻🌿_☘️🌱_🌻🌷';
-  } else if (temp >= 60) {
-    tempEl.className = 'yellow';
-    landscapeEl.textContent = '🌾🌾_🍃_🪨__🛤_🌾🌾🌾_🍃';
-  } else if (temp >= 50) {
-    tempEl.className = 'green';
-    landscapeEl.textContent = '🌲🌲⛄️🌲⛄️🍂🌲🍁🌲🌲⛄️🍂🌲';
-  } else {
-    tempEl.className = 'teal';
-    landscapeEl.textContent = '🌲🌲⛄️🌲⛄️🍂🌲🍁🌲🌲⛄️🍂🌲';
-  }
-  tempEl.textContent = temp;
+  cityNameInput: null,
+  headerCityNameEl: null,
+  resetCityBtn: null,
 };
 
-updateTempColorAndLandscape(70);
+
+const loadControls = () => {
+  state.tempEl = document.getElementById('tempValue');
+  state.tempUpEl = document.getElementById('increaseTempControl');
+  state.tempDownEl = document.getElementById('decreaseTempControl');
+  state.landscapeEl = document.getElementById('landscape');
+  state.cityNameInput = document.getElementById('cityNameInput');
+  state.headerCityNameEl = document.getElementById('headerCityName');
+  state.resetCityBtn = document.getElementById('cityNameReset');
+};
+
+const updateTempColor = (temp) => {
+
+  state.tempEl.className = '';
+
+  if (temp >= 80) {
+    state.tempEl.classList.add('red');
+  } else if (temp >= 70) {
+    state.tempEl.classList.add('orange');
+  } else if (temp >= 60) {
+    state.tempEl.classList.add('yellow');
+  } else if (temp >= 50) {
+    state.tempEl.classList.add('green');
+  } else { state.tempEl.classList.add('teal');
+
+  };
+  // state.tempEl.textContent = temp;
+};
+
+const updateLandscape = (temp) => {
+
+  if (temp >= 80) {
+    state.landscapeEl.textContent = '🌵__🐍_🦂_🌵🌵__🐍_🏜_🦂';
+  } else if (temp >= 70) {
+    state.landscapeEl.textContent = '🌸🌿🌼__🌷🌻🌿_☘️🌱_🌻🌷';
+  } else if (temp >= 60) {
+    state.landscapeEl.textContent = '🌾🌾_🍃_🪨__🛤_🌾🌾🌾_🍃';
+  } else { state.landscapeEl.textContent = '🌲🌲⛄️🌲⛄️🍂🌲🍁🌲🌲⛄️🍂🌲';
+  };
+};
 
 
-tempUpEl.addEventListener('click', () => {
-  let tempValue = parseInt(tempEl.textContent);
-  tempValue++;
-  tempEl.textContent = tempValue;
-  updateTempColorAndLandscape(tempValue);
-});
 
-tempDownEl.addEventListener('click', () => {
-  let tempValue = parseInt(tempEl.textContent);
-  tempValue--;
-  tempEl.textContext = tempValue;
-  updateTempColorAndLandscape(tempValue);
-});
+
+// updateTempColorAndLandscape(70);
+
+const increaseTemp = () => {
+  state.temp++;
+  state.tempEl.textContent = state.temp;
+  updateTempColor(state.temp);
+  updateLandscape(state.temp);
+};
+
+const decreaseTemp = () => {
+  state.temp--;
+  state.tempEl.textContent = state.temp;
+  updateTempColor(state.temp);
+  updateLandscape(state.temp);
+};
+
+
+const updateCityName = () => {
+  state.headerCityNameEl.textContent = state.cityNameInput.value;
+};
+
+const resetCityName = () => {
+  state.cityNameInput.value = 'Seattle';
+  updateCityName();
+};
+
+
+const registerEvents = () => {
+  state.cityNameInput.addEventListener('input', updateCityName);
+  state.resetCityBtn.addEventListener('click', resetCityName);
+  state.tempUpEl.addEventListener('click', increaseTemp);
+  state.tempDownEl.addEventListener('click', decreaseTemp);
+};
+
+const onload = () => {
+  state.tempEl.textContent = state.temp;
+
+  loadControls();
+  updateTempColor(state.temp);
+  updateLandscape(state.temp);
+  registerEvents();
+  updateCityName();
+};
+
+onload();
