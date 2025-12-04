@@ -9,6 +9,7 @@ const state = {
   cityNameInput: null,
   headerCityNameEl: null,
   resetCityBtn: null,
+  currentTempBtn: null
 };
 
 
@@ -20,6 +21,7 @@ const loadControls = () => {
   state.cityNameInput = document.getElementById('cityNameInput');
   state.headerCityNameEl = document.getElementById('headerCityName');
   state.resetCityBtn = document.getElementById('cityNameReset');
+  state.currentTempBtn = document.getElementById('currentTempButton');
 };
 
 const updateTempColor = (temp) => {
@@ -62,11 +64,56 @@ const resetCityName = () => {
   updateUI();
 };
 
+const getLanLon = (city) => {
+  return axios
+    .get('http://127.0.0.1:5000/location', {
+      params: {
+        q: city,
+        format: 'json'
+      }
+    })
+    .then((response) => {
+      const location = response.data[0];
+      const latitude = location.lat;
+      const longitude = location.lon;
+
+      return { latitude, longitude };
+    })
+    .catch((err) => {
+      console.error(err);
+    });
+};
+
+const getWeather = (latitude, longitude) => {
+  return axios
+    .get('http://127.0.0.1:5000/weather', { params: {lat: latitude, lon: longitude } })
+    .then(response => {
+      const kelvin = response.data.main.temp;
+      const fahrenheit = Math.round((kelvin - 273.15) * 9/5 + 32);
+      return fahrenheit;
+    });
+};
+
+const updateRealtimeTemp = () => {
+  const city = state.cityNameInput.value;
+
+  getLanLon(city)
+    .then(({ latitude, longitude }) => getWeather(latitude, longitude))
+    .then(temp => {
+      state.temp = temp;
+      updateUI();
+      return temp;
+    })
+    .catch(err => console.log(err));
+};
+
+
 const registerEvents = () => {
   state.cityNameInput.addEventListener('input', updateUI);
   state.resetCityBtn.addEventListener('click', resetCityName);
   state.tempUpEl.addEventListener('click', increaseTemp);
   state.tempDownEl.addEventListener('click', decreaseTemp);
+  state.currentTempBtn.addEventListener('click', updateRealtimeTemp);
 };
 
 const onload = () => {
