@@ -9,7 +9,9 @@ const state = {
   cityNameInput: null,
   headerCityNameEl: null,
   resetCityBtn: null,
-  currentTempBtn: null
+  currentTempBtn: null,
+  skySelector: null,
+  skyEl: null
 };
 
 
@@ -22,6 +24,8 @@ const loadControls = () => {
   state.headerCityNameEl = document.getElementById('headerCityName');
   state.resetCityBtn = document.getElementById('cityNameReset');
   state.currentTempBtn = document.getElementById('currentTempButton');
+  state.skySelector = document.getElementById('skySelect');
+  state.skyEl = document.getElementById('sky');
 };
 
 const updateTempColor = (temp) => {
@@ -40,6 +44,15 @@ const updateLandscape = (temp) => {
   else if (temp >= 70) state.landscapeEl.textContent = '🌸🌿🌼__🌷🌻🌿_☘️🌱_🌻🌷';
   else if (temp >= 60) state.landscapeEl.textContent = '🌾🌾_🍃_🪨__🛤_🌾🌾🌾_🍃';
   else state.landscapeEl.textContent = '🌲🌲⛄️🌲⛄️🍂🌲🍁🌲🌲⛄️🍂🌲';
+};
+
+const updateSky = () => {
+  const selection = state.skySelector.value;
+
+  if (selection === 'Sunny') state.skyEl.textContent = '☁️ ☁️ ☁️ ☀️ ☁️ ☁️';
+  else if (selection === 'Cloudy') state.skyEl.textContent = '☁️☁️ ☁️ ☁️☁️ ☁️ 🌤 ☁️ ☁️☁️';
+  else if (selection === 'Rainy') state.skyEl.textContent = '🌧🌈⛈🌧🌧💧⛈🌧🌦🌧💧🌧🌧';
+  else if (selection === 'Snowy') state.skyEl.textContent = '🌨❄️🌨🌨❄️❄️🌨❄️🌨❄️❄️🌨🌨';
 };
 
 const updateUI = () => {
@@ -114,12 +127,14 @@ const registerEvents = () => {
   state.tempUpEl.addEventListener('click', increaseTemp);
   state.tempDownEl.addEventListener('click', decreaseTemp);
   state.currentTempBtn.addEventListener('click', updateRealtimeTemp);
+  state.skySelector.addEventListener('change', updateSky);
 };
 
 const onload = () => {
   loadControls();
   updateUI();
   registerEvents();
+  updateSky();
 };
 
 onload();
