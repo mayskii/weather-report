@@ -19,6 +19,7 @@
         <span>For the lovely city of 
             <span id="headerCityName" class="header__city-name"></span></span>
     </header>
+    <div class="indicator-area">
     <section class="temperature__section">
         <h2>Temperature</h2>
         <div class="temperature__content">
@@ -27,24 +28,28 @@
                 <span id="tempValue"></span>
                 <span id="decreaseTempControl">⬇️</span>
             </div>
-            <button id="currentTempButton">Get Realtime Temperature</button>
+            <button id="currentTempButton">Get Realtime<img src="ada-project-docs/assets/temp-white.png" class="temp-image" alt="thermometer icon"></button>
         </div>
+    </section>
+    <section class="city-name__section">
+        <h2>City Name</h2>
+        <input type="text" id="cityNameInput" value="Seattle">
+        <button id="cityNameReset" class="city-name__reset-btn">Reset</button>
     </section>
     <section class="sky__section">
         <h2>Sky</h2>
+        <!-- <div class="sky-wrapper"> -->
         <select id="skySelect">
             <option value="Sunny" selected>Sunny</option>
             <option value="Cloudy">Cloudy</option>
             <option value="Rainy">Rainy</option>
             <option value="Snowy">Snowy</option>
         </select>
+        <br>
+        <img src="ada-project-docs/assets/cloudy.png" alt="sun between clouds " class="sky-icon">
+        <!-- </div> -->
     </section>
-
-    <section class="city-name__section">
-        <h2>City Name</h2>
-        <input type="text" id="cityNameInput" value="Seattle">
-        <button id="cityNameReset" class="city-name__reset-btn">Reset</button>
-    </section>
+    </div>
 
     <section class="garden__section">
         <h2>Weather Garden</h2>
