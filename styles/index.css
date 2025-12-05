@@ -85,7 +85,6 @@ body {
     /* align-self: center; */
 }
 
-
 #tempValue {
     font-size: 3rem;
     margin-inline: 1rem;
@@ -133,11 +132,10 @@ body {
 }
 
 .sky-icon {
-    margin-top: 0.5rem;
+    margin-top: 1rem;
     width: 70px;
     height: 70px;
 } 
-
 
 .city-name__reset-btn {
     border: 0;
