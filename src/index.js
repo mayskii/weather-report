@@ -26,6 +26,7 @@ const loadControls = () => {
   state.currentTempBtn = document.getElementById('currentTempButton');
   state.skySelector = document.getElementById('skySelect');
   state.skyEl = document.getElementById('sky');
+  state.gardenContent = document.getElementById('gardenContent');
 };
 
 const updateTempColor = (temp) => {
@@ -53,6 +54,14 @@ const updateSky = () => {
   else if (selection === 'Cloudy') state.skyEl.textContent = '☁️☁️ ☁️ ☁️☁️ ☁️ 🌤 ☁️ ☁️☁️';
   else if (selection === 'Rainy') state.skyEl.textContent = '🌧🌈⛈🌧🌧💧⛈🌧🌦🌧💧🌧🌧';
   else if (selection === 'Snowy') state.skyEl.textContent = '🌨❄️🌨🌨❄️❄️🌨❄️🌨❄️❄️🌨🌨';
+
+  state.gardenContent.classList.remove('sunny', 'cloudy', 'rainy', 'snowy');
+
+  if (selection === 'Sunny') state.gardenContent.classList.add('sunny');
+  else if (selection === 'Cloudy') state.gardenContent.classList.add('cloudy');
+  else if (selection === 'Rainy') state.gardenContent.classList.add('rainy');
+  else if (selection === 'Snowy') state.gardenContent.classList.add('snowy');
+
 };
 
 const updateUI = () => {
