@@ -109,7 +109,7 @@ const resetCityName = () => {
 
 const getLanLon = (city) => {
   return axios
-    .get('http://127.0.0.1:5000/location', {
+    .get('https://ada-weather-report-proxy-server.onrender.com/location', {
       params: {
         q: city,
         format: 'json'
@@ -129,7 +129,7 @@ const getLanLon = (city) => {
 
 const getWeather = (latitude, longitude) => {
   return axios
-    .get('http://127.0.0.1:5000/weather', { params: {lat: latitude, lon: longitude } })
+    .get('https://ada-weather-report-proxy-server.onrender.com/weather', { params: {lat: latitude, lon: longitude } })
     .then(response => {
       const kelvin = response.data.main.temp;
       const fahrenheit = Math.round((kelvin - 273.15) * 9/5 + 32);
