@@ -54,17 +54,34 @@ const updateLandscape = (temp) => {
 const updateSky = () => {
   const selection = state.skySelector.value;
 
-  if (selection === 'Sunny') state.skyEl.textContent = '☁️ ☁️ ☁️ ☀️ ☁️ ☁️';
-  else if (selection === 'Cloudy') state.skyEl.textContent = '☁️☁️ ☁️ ☁️☁️ ☁️ 🌤 ☁️ ☁️☁️';
-  else if (selection === 'Rainy') state.skyEl.textContent = '🌧🌈⛈🌧🌧💧⛈🌧🌦🌧💧🌧🌧';
-  else if (selection === 'Snowy') state.skyEl.textContent = '🌨❄️🌨🌨❄️❄️🌨❄️🌨❄️❄️🌨🌨';
+  const skyIcons = {
+    Sunny: '☁️ ☁️ ☁️ ☀️ ☁️ ☁️',
+    Cloudy: '☁️☁️ ☁️ ☁️☁️ ☁️ 🌤 ☁️ ☁️☁️',
+    Rainy: '🌧🌈⛈🌧🌧💧⛈🌧🌦🌧💧🌧🌧',
+    Snowy: '🌨❄️🌨🌨❄️❄️🌨❄️🌨❄️❄️🌨🌨'
+  };
 
-  state.gardenContent.classList.remove('sunny', 'cloudy', 'rainy', 'snowy');
+  const gardenClasses = {
+    Sunny: 'sunny',
+    Cloudy: 'cloudy',
+    Rainy: 'rainy',
+    Snowy: 'snowy'
+  };
 
-  if (selection === 'Sunny') state.gardenContent.classList.add('sunny');
-  else if (selection === 'Cloudy') state.gardenContent.classList.add('cloudy');
-  else if (selection === 'Rainy') state.gardenContent.classList.add('rainy');
-  else if (selection === 'Snowy') state.gardenContent.classList.add('snowy');
+  const bodyClasses = {
+    Sunny: 'sunnyBackground',
+    Cloudy: 'cloudyBackground',
+    Rainy: 'rainyBackground',
+    Snowy: 'snowyBackground'
+  };
+
+  state.skyEl.textContent = skyIcons[selection];
+
+  state.gardenContent.className = 'garden__content';
+  state.gardenContent.classList.add(gardenClasses[selection]);
+
+  document.body.className = '';
+  document.body.classList.add(bodyClasses[selection]);
 
 };
 

@@ -210,3 +210,27 @@ background-color: lightsteelblue;
     color: white;
     cursor: pointer;
 }
+
+.sunnyBackground {
+    background-image: url('../assets/sunny.jpg');
+    background-size: cover;
+    background-position: center;
+}
+
+.cloudyBackground {
+    background-image: url('../assets/cloudy.jpg');
+    background-size: cover;
+    background-position: center;
+}
+
+.rainyBackground {
+    background-image: url('../assets/rainy.jpg');
+    background-size: cover;
+    background-position: center;
+}
+
+.snowyBackground {
+    background-image: url('../assets/snowy.jpg');
+    background-size: cover;
+    background-position: center;
+}
