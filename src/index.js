@@ -11,7 +11,10 @@ const state = {
   resetCityBtn: null,
   currentTempBtn: null,
   skySelector: null,
-  skyEl: null
+  skyEl: null,
+  unitBtn: null,
+  isFahrenheit: true,
+
 };
 
 
@@ -26,6 +29,8 @@ const loadControls = () => {
   state.currentTempBtn = document.getElementById('currentTempButton');
   state.skySelector = document.getElementById('skySelect');
   state.skyEl = document.getElementById('sky');
+  state.gardenContent = document.getElementById('gardenContent');
+  state.unitBtn = document.getElementById('toggleUnitBtn');
 };
 
 const updateTempColor = (temp) => {
@@ -49,10 +54,35 @@ const updateLandscape = (temp) => {
 const updateSky = () => {
   const selection = state.skySelector.value;
 
-  if (selection === 'Sunny') state.skyEl.textContent = '☁️ ☁️ ☁️ ☀️ ☁️ ☁️';
-  else if (selection === 'Cloudy') state.skyEl.textContent = '☁️☁️ ☁️ ☁️☁️ ☁️ 🌤 ☁️ ☁️☁️';
-  else if (selection === 'Rainy') state.skyEl.textContent = '🌧🌈⛈🌧🌧💧⛈🌧🌦🌧💧🌧🌧';
-  else if (selection === 'Snowy') state.skyEl.textContent = '🌨❄️🌨🌨❄️❄️🌨❄️🌨❄️❄️🌨🌨';
+  const skyIcons = {
+    Sunny: '☁️ ☁️ ☁️ ☀️ ☁️ ☁️',
+    Cloudy: '☁️☁️ ☁️ ☁️☁️ ☁️ 🌤 ☁️ ☁️☁️',
+    Rainy: '🌧🌈⛈🌧🌧💧⛈🌧🌦🌧💧🌧🌧',
+    Snowy: '🌨❄️🌨🌨❄️❄️🌨❄️🌨❄️❄️🌨🌨'
+  };
+
+  const gardenClasses = {
+    Sunny: 'sunny',
+    Cloudy: 'cloudy',
+    Rainy: 'rainy',
+    Snowy: 'snowy'
+  };
+
+  const bodyClasses = {
+    Sunny: 'sunnyBackground',
+    Cloudy: 'cloudyBackground',
+    Rainy: 'rainyBackground',
+    Snowy: 'snowyBackground'
+  };
+
+  state.skyEl.textContent = skyIcons[selection];
+
+  state.gardenContent.className = 'garden__content';
+  state.gardenContent.classList.add(gardenClasses[selection]);
+
+  document.body.className = '';
+  document.body.classList.add(bodyClasses[selection]);
+
 };
 
 const updateUI = () => {
@@ -120,6 +150,20 @@ const updateRealtimeTemp = () => {
     .catch(err => console.log(err));
 };
 
+const toggleUnit = () => {
+  state.isFahrenheit = !state.isFahrenheit;
+
+  if(state.isFahrenheit) {
+    state.temp = Math.round(state.temp * 9/5 + 32);
+    state.unitBtn.textContent = '°F';
+  } else {
+    state.temp = Math.round((state.temp - 32) * 5/9);
+    state.unitBtn.textContent = '°C';
+  }
+
+  updateUI();
+};
+
 
 const registerEvents = () => {
   state.cityNameInput.addEventListener('input', updateUI);
@@ -128,6 +172,7 @@ const registerEvents = () => {
   state.tempDownEl.addEventListener('click', decreaseTemp);
   state.currentTempBtn.addEventListener('click', updateRealtimeTemp);
   state.skySelector.addEventListener('change', updateSky);
+  state.unitBtn.addEventListener('click', toggleUnit);
 };
 
 const onload = () => {
