@@ -187,3 +187,26 @@ background-color: lightblue;
 .snowy {
 background-color: lightsteelblue;
 }
+
+.temperature-header {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+}
+
+#toggleUnitBtn {
+    position: relative;
+    top: -18px;
+    left: 10px;
+    font-size: 1rem;
+    padding: 3px 4px;
+    line-height: 1;
+    height: auto;
+    min-height: 0;
+    border-radius: 4px;
+    border: 1px solid #1060c3;
+    background-color: #1060c3;
+    color: white;
+    cursor: pointer;
+}

@@ -11,7 +11,10 @@ const state = {
   resetCityBtn: null,
   currentTempBtn: null,
   skySelector: null,
-  skyEl: null
+  skyEl: null,
+  unitBtn: null,
+  isFahrenheit: true,
+
 };
 
 
@@ -27,6 +30,7 @@ const loadControls = () => {
   state.skySelector = document.getElementById('skySelect');
   state.skyEl = document.getElementById('sky');
   state.gardenContent = document.getElementById('gardenContent');
+  state.unitBtn = document.getElementById('toggleUnitBtn');
 };
 
 const updateTempColor = (temp) => {
@@ -129,6 +133,20 @@ const updateRealtimeTemp = () => {
     .catch(err => console.log(err));
 };
 
+const toggleUnit = () => {
+  state.isFahrenheit = !state.isFahrenheit;
+
+  if(state.isFahrenheit) {
+    state.temp = Math.round(state.temp * 9/5 + 32);
+    state.unitBtn.textContent = '°F';
+  } else {
+    state.temp = Math.round((state.temp - 32) * 5/9);
+    state.unitBtn.textContent = '°C';
+  }
+
+  updateUI();
+};
+
 
 const registerEvents = () => {
   state.cityNameInput.addEventListener('input', updateUI);
@@ -137,6 +155,7 @@ const registerEvents = () => {
   state.tempDownEl.addEventListener('click', decreaseTemp);
   state.currentTempBtn.addEventListener('click', updateRealtimeTemp);
   state.skySelector.addEventListener('change', updateSky);
+  state.unitBtn.addEventListener('click', toggleUnit);
 };
 
 const onload = () => {
